@@ -77,6 +77,19 @@ Prebuilt binaries are available on the [Releases](https://github.com/Anti-Anti-A
 The game reads the original Japanese filenames (for example `紅魔郷CM.DAT` and `東方紅魔郷.cfg`).
 English translation patches and thcrap are not supported.
 
+### Music
+
+Background music is MIDI (`bgm/th06_01.mid`, …) and is output through the ALSA sequencer
+(`TH06 MIDI Out`), which connects to the first hardware or software MIDI synth it finds. A
+bare Pi has no synth, so install one:
+
+```sh
+sudo apt install fluidsynth fluid-soundfont-gm
+fluidsynth -a alsa -m alsa_seq -g 0.5 /usr/share/sounds/sf2/FluidR3_GM.sf2 &
+```
+
+Alternatively set Music Mode to `WAV` in the game's options if you have `bgm/*.wav` tracks.
+
 ## Repository layout
 
 ```
