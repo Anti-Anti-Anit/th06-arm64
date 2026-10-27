@@ -67,6 +67,8 @@ Options: `--no-asoundlib` (build without ALSA MIDI), `--use-c23-embed` (use `#em
 
 ## Running
 
+Prebuilt binaries are available on the [Releases](https://github.com/Anti-Anti-Anit/th06-arm64/releases) page.
+
 1. Copy the ARM64 `th06` binary into your game directory with the original data files.
 2. Provide a Japanese font: place `msgothic.ttc` in the game directory, or copy
    `NotoSans-Regular.ttf` to `NotoSansJP-Regular.ttf` to use the bundled fallback.
