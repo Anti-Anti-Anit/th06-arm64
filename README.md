@@ -79,16 +79,37 @@ English translation patches and thcrap are not supported.
 
 ### Music
 
-Background music is MIDI (`bgm/th06_01.mid`, …) and is output through the ALSA sequencer
-(`TH06 MIDI Out`), which connects to the first hardware or software MIDI synth it finds. A
-bare Pi has no synth, so install one:
+Two BGM modes are supported (Music Mode in the game options):
+
+- **WAV** — `bgm/th06_*.wav` streamed through SDL audio. This is the
+  recommended mode; with WAV tracks present it is selected automatically.
+- **MIDI** — `bgm/th06_*.mid` through the ALSA sequencer (`TH06 MIDI Out`),
+  which connects to the first hardware or software synth it finds. A bare Pi
+  has no synth, so install one:
+
+  ```sh
+  sudo apt install fluidsynth fluid-soundfont-gm
+  fluidsynth -a alsa -m alsa_seq -g 0.5 /usr/share/sounds/sf2/FluidR3_GM.sf2 &
+  ```
+
+#### No sound on Raspberry Pi 5? (common fix)
+
+The Pi 5 has **no headphone jack** — audio goes out through HDMI only. If the
+game is silent even with WAV BGM, check the audio stack before blaming the
+game:
 
 ```sh
-sudo apt install fluidsynth fluid-soundfont-gm
-fluidsynth -a alsa -m alsa_seq -g 0.5 /usr/share/sounds/sf2/FluidR3_GM.sf2 &
+systemctl --user status pipewire wireplumber   # both must be active
+wpctl get-volume @DEFAULT_AUDIO_SINK@          # e.g. 0.16 = nearly silent!
+systemctl --user enable --now pipewire wireplumber
+wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0
 ```
 
-Alternatively set Music Mode to `WAV` in the game's options if you have `bgm/*.wav` tracks.
+Also verify your monitor actually exposes speakers
+(`cat /proc/asound/card0/eld*`), and note that MIDI-only USB gadgets can
+appear as sound cards and confuse routing. A standalone SDL sine probe is
+included at `tools/sdl_sine.cpp` to test the output path independently of
+the game.
 
 ## Repository layout
 
