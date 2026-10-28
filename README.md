@@ -1,5 +1,7 @@
 # th06-arm64
 
+![EoSD running on Raspberry Pi 5](docs/screenshot.png)
+
 **東方紅魔郷 ～ the Embodiment of Scarlet Devil** — portable build reworked for **Linux ARM64 (aarch64)**.
 
 I wanted to play Touhou 6 on my **Raspberry Pi 5**, so I took the EoSD-portable source and
@@ -7,6 +9,9 @@ reworked it into a native Linux ARM64 target — this repository is that build. 
 input, audio and file-system layers sit on top of SDL2, so the game runs on the Pi 5 and other
 ARM64 Linux boards, SBCs, ARM laptops and ARM64 virtual machines instead of relying on a
 Windows/x86 environment.
+
+The screenshot above is the game running natively on a Raspberry Pi 5 at
+60 fps (attract-mode demo, Stage 4).
 
 It is derived from the [th06 decompilation project](https://github.com/GensokyoClub/th06)
 and keeps the original Japanese data formats, so it acts as a drop-in replacement binary for
